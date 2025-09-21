@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Team Profile</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #111; color: white; text-align: center; }
+        .team-container { display: flex; flex-wrap: wrap; justify-content: center; }
+        .member { background: #222; margin: 15px; padding: 20px; border-radius: 10px; width: 250px; }
+        .member img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; }
+        form { margin: 20px; }
+        input[type="text"] { padding: 8px; border-radius: 5px; border: none; width: 250px; }
+        button { padding: 8px 15px; border: none; background: #0077b5; color: white; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #0056a0; }
+    </style>
+</head>
+<body>
+    <h1>SUPER TEAM</h1>
+
+    <!-- Search form using POST -->
+    <form method="post" action="">
+        <input type="text" name="name" placeholder="Enter first or last name">
+        <button type="submit">Search</button>
+    </form>
+
+    <div class="team-container">
+    <?php
+    // team data
+    $team = [
+        [
+            "name" => "Zhandro Rhuzzel Gabelo",
+            "img" => "super_images/pogi.jpg",
+            "address" => "182 bautista st. purok 2 Bayanan Muntinlupa City",
+            "number" => "09920599061",
+            "email" => "zhandro.gabelo8@gmail.com"
+        ],
+        [
+            "name" => "Johnmark Villarias",
+            "img" => "super_images/cutes.jpg",
+            "address" => "26 interior ilaya st. Alabang Muntinlupa City",
+            "number" => "09937981685",
+            "email" => "jvillarias2020@gmail.com"
+        ],
+        [
+            "name" => "Lhancel Manlangit",
+            "img" => "super_images/speds.jpg",
+            "address" => "233 blk 2 purok 3 Bayanan Muntinlupa City",
+            "number" => "09309619076",
+            "email" => "Wanzelmanlangit02@gmail.com"
+        ],
+        [
+            "name" => "Michael Fredrick Dela Cruz Maturan",
+            "img" => "super_images/hey.jpg",
+            "address" => "Phase 1 Block 33 Lot 34 Southville 3 Poblacion Muntinlupa City",
+            "number" => "09207636616",
+            "email" => "michealmaturan@gmail.com"
+        ]
+    ];
+
+    // Check if form submitted via POST
+    if (isset($_POST['name']) && $_POST['name'] !== '') {
+        $search = strtolower(trim($_POST['name']));
+        $found = false;
+
+        foreach ($team as $m) {
+            // case-insensitive search (first, last, or full name)
+            if (strpos(strtolower($m['name']), $search) !== false) {
+                echo "<div class='member'>
+                        <img src='{$m['img']}' alt='{$m['name']}'>
+                        <h2>{$m['name']}</h2>
+                        <p><strong>Address:</strong> {$m['address']}</p>
+                        <p><strong>CP Number:</strong> {$m['number']}</p>
+                        <p><strong>Email:</strong> {$m['email']}</p>
+                      </div>";
+                $found = true;
+            }
+        }
+
+        if (!$found) {
+            echo "<p>No member found with that name.</p>";
+        }
+    }
+    ?>
+    </div>
+</body>
+</html>
